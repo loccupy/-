@@ -61,7 +61,7 @@ void list_remove(Node * t)
     q->prev=p;
 }
 
-void init(Node * list) // зацикливавем список
+void init(Node * list) // зацикливавем список НА СЕБЕ
 {
     list->next=list;
     list->prev=list;
