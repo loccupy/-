@@ -57,18 +57,6 @@ int main()
     c.next = &z;
     c.prev = &b;
 
-    // Node * p = list -> next;
-    // // printf("%d\n", p -> data);
-    // // p = p ->next;
-
-    // // printf("%d\n", p -> data);
-    // // p = p ->next;
-    // // printf("%d\n", p -> data);
-    // while(p != list)
-    // {
-    //     printf("%d\n", p -> data);
-    //     p = p->next;
-    // }
     print(list);
     printf("\n");
     print_back(list);
