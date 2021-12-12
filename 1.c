@@ -56,8 +56,8 @@ void insert_before(Node * q, Node * t) // всталяем узел t перед
 void list_remove(Node * t)
 {
     Node * p = t->prev;
-    Node * q = p->next;
-    p->next=p;
+    Node * q = t->next;
+    p->next=q;
     q->prev=p;
 }
 
@@ -97,7 +97,11 @@ int main()
     // print_dbg(list);
 
     printf("Empty %s\n", is_empty(list) ? "yes":"no");
+    insert(list, &u); // 10
+    insert(list, &c); // 21
+    insert(list, &b); // 17
     insert(list, &a); // 3
+    list_remove(&u);
     print(list);
     printf("Empty %s\n", is_empty(list) ? "yes":"no");
 
