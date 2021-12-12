@@ -12,9 +12,10 @@ void print(Node * list) // печатать по порядку
     Node * p = list -> next;
     while(p != list)
     {
-        printf("%d\n", p -> data);
+        printf("%d ", p -> data);
         p = p->next;
     }
+    printf("\n");
 }
 void print_dbg(Node * list)
 {
@@ -34,26 +35,40 @@ void print_back(Node * list) // печатать в обратном поряд�
     Node * p = list -> prev;
     while(p >= list)
     {
-        printf("%d\n", p -> data);
+        printf("%d ", p -> data);
         p = p->prev;
     }
+    printf("\n");
 }
-void insert(Node * p,Node * t)  //вставить после
+void insert(Node * p,Node * t)  //вставляем узел t после узла p
 {
-    Node * q = p->next;
+    Node * q = p->next; 
     t->prev = p;
     t->next = q;
     p->next = t;
     q->prev = t;
 }
-void insert_before(Node * q, Node * t) // вставить до
+void insert_before(Node * q, Node * t) // всталяем узел t перед узлом q
 {
     insert(q->prev, t);
 }
-void init(Node * list)
+
+void list_remove(Node * t)
+{
+    Node * p = t->prev;
+    Node * q = p->next;
+    p->next=p;
+    q->prev=p;
+}
+
+void init(Node * list) // зацикливавем список
 {
     list->next=list;
     list->prev=list;
+}
+int is_empty(Node * list)
+{
+    return (list->prev == list && list->next == list);
 }
 int main()
 {
@@ -65,14 +80,14 @@ int main()
     c.data = 21;
     u.data = 10;
     w.data = 8;
-    // z.next = &a;
-    // z.prev = &c;
-    // a.next = &b;
-    // a.prev = &z;
-    // b.next = &c;
-    // b.prev = &a;
-    // c.next = &z;
-    // c.prev = &b;
+    // z.next = &a; -- заменяем эту модель на init(Node * list)
+    // z.prev = &c; -- заменяем эту модель на init(Node * list)
+    // a.next = &b; -- заменяем эту модель на init(Node * list)
+    // a.prev = &z; -- заменяем эту модель на init(Node * list)
+    // b.next = &c; -- заменяем эту модель на init(Node * list)
+    // b.prev = &a; -- заменяем эту модель на init(Node * list)
+    // c.next = &z; -- заменяем эту модель на init(Node * list)
+    // c.prev = &b; -- заменяем эту модель на init(Node * list)
 
     init(list);
     // print(list);
@@ -81,16 +96,17 @@ int main()
     // printf("\n");
     // print_dbg(list);
 
-    insert_before(list, &a);
+    printf("Empty %s\n", is_empty(list) ? "yes":"no");
+    insert(list, &a); // 3
     print(list);
-    printf("\n");
+    printf("Empty %s\n", is_empty(list) ? "yes":"no");
 
-    insert_before(list, &b);
-    print(list);
-    printf("\n");
+    // insert_before(list, &b); // 3 17
+    // print(list);
+    // printf("\n");
 
-    insert_before(list, &c);
-    print(list);
+    // insert_before(list, &c); // 3 17 21
+    // print(list);
   //  insert_before(&z, &w);
     
     // print(list);
