@@ -53,7 +53,7 @@ void insert_before(Node * q, Node * t) // всталяем узел t перед
     insert(q->prev, t);
 }
 
-void list_remove(Node * t)
+void list_remove(Node * t) // удаляет узел (схлопывание?)
 {
     Node * p = t->prev;
     Node * q = t->next;
