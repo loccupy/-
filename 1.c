@@ -66,20 +66,65 @@ void init(Node * list) // зацикливавем список НА СЕБЕ
     list->next=list;
     list->prev=list;
 }
-int is_empty(Node * list)
+
+int is_empty(Node * list) // проверка пустой или не пустой
 {
     return (list->prev == list && list->next == list);
 }
+
+Node * push_front(Node * list, Data d) // добавлят элементы 
+{
+    Node * p = malloc(sizeof(Node));
+    p->data = d;
+    insert(list, p);
+    return(p);
+}
+
+Node * push_back(Node * list, Data d) //  добавляет элементы в конец имеющегося перечня
+{
+    return(push_front(list->prev, d));
+}
+
+void test_alloc() // тест с памятью
+{
+    Node z;
+    Node * list = &z;
+
+    Data test_data1[] = {21, 17, 3};
+    Data test_data2[] = {10, 8};
+
+    init(list);
+    printf("Empty %s\n", is_empty(list) ? "yes":"no");
+
+    Node * t;
+
+    for (size_t i = 0; i < (sizeof(test_data1)/sizeof(test_data1[0])); i++)
+    {
+        t = push_front(list, test_data1[i]);
+        printf ("pushed: %d\n",t->data);
+        print (list);
+    } //3 17 21
+    for (size_t i = 0; i < (sizeof(test_data2)/sizeof(test_data2[0])); i++)
+    {
+        t = push_back(list, test_data2[i]);
+        printf ("pushed_back: %d\n",t->data);
+        print (list);
+    } // 3 17 21 10 8
+    printf("Empty %s\n", is_empty(list) ? "yes":"no");
+}
+
 int main()
 {
-    Node z, a, b, c, u, w;
-    Node * list = &z;
-    z.data = 0;
-    a.data = 3;
-    b.data = 17;
-    c.data = 21;
-    u.data = 10;
-    w.data = 8;
+    // Node z, a, b, c, u, w;
+    // Node * list = &z;
+    // z.data = 0;
+    // a.data = 3;
+    // b.data = 17;
+    // c.data = 21;
+    // u.data = 10;
+    // w.data = 8;
+
+    
     // z.next = &a; -- заменяем эту модель на init(Node * list)
     // z.prev = &c; -- заменяем эту модель на init(Node * list)
     // a.next = &b; -- заменяем эту модель на init(Node * list)
@@ -89,21 +134,21 @@ int main()
     // c.next = &z; -- заменяем эту модель на init(Node * list)
     // c.prev = &b; -- заменяем эту модель на init(Node * list)
 
-    init(list);
+    // init(list);
     // print(list);
     // printf("\n");
     // print_back(list);
     // printf("\n");
     // print_dbg(list);
 
-    printf("Empty %s\n", is_empty(list) ? "yes":"no");
-    insert(list, &u); // 10
-    insert(list, &c); // 21
-    insert(list, &b); // 17
-    insert(list, &a); // 3
-    list_remove(&u);
-    print(list);
-    printf("Empty %s\n", is_empty(list) ? "yes":"no");
+    // printf("Empty %s\n", is_empty(list) ? "yes":"no");
+    // insert(list, &u); // 10
+    // insert(list, &c); // 21
+    // insert(list, &b); // 17
+    // insert(list, &a); // 3
+    // list_remove(&u);
+    // print(list);
+    // printf("Empty %s\n", is_empty(list) ? "yes":"no");
 
     // insert_before(list, &b); // 3 17
     // print(list);
@@ -118,5 +163,7 @@ int main()
  //   print_back(list);
   //  printf("\n");
   //  print_dbg(list);
+
+    test_alloc();
     return 0;
 }
