@@ -10,7 +10,7 @@ typedef struct Node
 void print(Node * list) // печатать по порядку
 {
     Node * p = list -> next;
-    while(p != list)
+    while(p != list) 
     {
         printf("%d ", p -> data);
         p = p->next;
