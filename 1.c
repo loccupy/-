@@ -85,6 +85,31 @@ Node * push_back(Node * list, Data d) //  добавляет элементы в
     return(push_front(list->prev, d));
 }
 
+Data list_delete(Node *t)
+{
+    list_remove(t);
+    Data d = t->data;
+    free(t);
+    return d;
+}
+
+Data list_pop_front(Node *t)
+{
+    return (list_delete(t->next));
+}
+Data list_pop_back(Node *t)
+{
+    return (list_delete(t->prev));
+}
+
+void clear(Node *list)
+{
+    while(!is_empty(list))
+    {
+        list_pop_front(list);
+    }
+}
+
 void test_alloc() // тест с памятью
 {
     Node z;
@@ -111,6 +136,24 @@ void test_alloc() // тест с памятью
         print (list);
     } // 3 17 21 10 8
     printf("Empty %s\n", is_empty(list) ? "yes":"no");
+
+    t = list->next->next;
+    Data res;
+    res = list_delete(t);
+    print(list);
+    printf("delete: %d\n", res);
+
+    res= list_pop_front(list);
+    print(list);
+    printf("pop_front: %d\n",res);
+
+    res= list_pop_back(list);
+    print(list);
+    printf("pop_back: %d\n",res);
+
+    clear(list);
+    printf("Empty %s\n", is_empty(list) ? "yes":"no");
+
 }
 
 int main()
